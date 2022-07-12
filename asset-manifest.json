@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/github-contributions-in-3d/static/css/main.0fb6a665.css",
-    "main.js": "/github-contributions-in-3d/static/js/main.6479d2c4.js",
+    "main.js": "/github-contributions-in-3d/static/js/main.1ee2275e.js",
     "index.html": "/github-contributions-in-3d/index.html",
     "main.0fb6a665.css.map": "/github-contributions-in-3d/static/css/main.0fb6a665.css.map",
-    "main.6479d2c4.js.map": "/github-contributions-in-3d/static/js/main.6479d2c4.js.map"
+    "main.1ee2275e.js.map": "/github-contributions-in-3d/static/js/main.1ee2275e.js.map"
   },
   "entrypoints": [
     "static/css/main.0fb6a665.css",
-    "static/js/main.6479d2c4.js"
+    "static/js/main.1ee2275e.js"
   ]
 }
