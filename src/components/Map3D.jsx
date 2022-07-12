@@ -52,7 +52,7 @@ function Map3D(props) {
   return (
     <div style={{ display: 'flex', flex: 1, background: 'black' }}>
       <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
-        <Scene clearColor={Color3.Black()}>
+        <Scene>
           <arcRotateCamera
             name='camera'
             alpha={-Math.PI / 2}
