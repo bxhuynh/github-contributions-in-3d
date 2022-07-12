@@ -1,23 +1,53 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+import Map3D from './components/Map3D';
 
 function App() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    /* snipplet code:  */
+    async function getContributions(token, username) {
+      const headers = {
+        Authorization: `bearer ${token}`,
+      };
+      const body = {
+        query: `query {
+          user(login: "${username}") {
+            name
+            contributionsCollection {
+              contributionCalendar {
+                totalContributions
+                weeks {
+                  contributionDays {
+                    color
+                    contributionCount
+                    date
+                    weekday
+                  }
+                  firstDay
+                }
+              }
+            }
+          }
+        }`,
+      };
+      const response = await fetch('https://api.github.com/graphql', {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: headers,
+      });
+      const data = await response.json();
+      return data;
+    }
+
+    getContributions(process.env.REACT_APP_TOKEN, 'bxhuynh').then((res) => {
+      setData(res?.data?.user);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Map3D data={data} />
     </div>
   );
 }
