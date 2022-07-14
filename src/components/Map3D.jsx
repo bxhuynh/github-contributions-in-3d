@@ -2,53 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Engine, Scene } from 'react-babylonjs';
 import { Vector3, Color3 } from '@babylonjs/core';
+import { BlocksWithRisingAnimation } from './BlocksWithRisingAnimation';
 
 Map3D.propTypes = {
   data: PropTypes.object,
-};
-
-const genBlocks = (data) => {
-  const blocks = [];
-  const weeks = data?.contributionsCollection?.contributionCalendar?.weeks;
-  for (let weekIndex = 0; weekIndex < weeks.length; weekIndex++) {
-    const week = weeks[weekIndex];
-    for (
-      let dayIndex = 0;
-      dayIndex < week.contributionDays.length;
-      dayIndex++
-    ) {
-      const day = week.contributionDays[dayIndex];
-
-      if (day.contributionCount) {
-        blocks.push(
-          <box
-            key={'day' + weekIndex + dayIndex}
-            name={'day' + weekIndex + dayIndex}
-            height={day.contributionCount}
-            position={
-              new Vector3(weekIndex, day.contributionCount / 2.0, -dayIndex)
-            }
-          >
-            <standardMaterial
-              name={'box' + weekIndex + dayIndex + 'Mat'}
-              diffuseColor={Color3.FromHexString(day.color)}
-            ></standardMaterial>
-          </box>
-        );
-      }
-    }
-  }
-  return blocks;
 };
 
 function Map3D(props) {
   const { data } = props;
   if (!data) return <></>;
 
-  const numberOfWeeks =
-    data.contributionsCollection.contributionCalendar.weeks.length;
+  const weeks = data.contributionsCollection.contributionCalendar.weeks;
+  const numberOfWeeks = weeks.length;
 
-  const contributionBlocks = genBlocks(data);
   return (
     <div style={{ display: 'flex', flex: 1, background: 'black' }}>
       <Engine antialias adaptToDeviceRatio canvasId='babylonJS'>
@@ -66,7 +32,7 @@ function Map3D(props) {
             intensity={0.8}
             direction={new Vector3(0, 5, 0)}
           />
-          {contributionBlocks}
+          <BlocksWithRisingAnimation weeks={weeks} />
           <ground
             name='ground'
             width={numberOfWeeks}
